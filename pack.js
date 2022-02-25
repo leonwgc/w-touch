@@ -10,11 +10,11 @@ pack(true, {
     path: path.resolve(__dirname, 'output'),
   },
   devServer: {
-    port: 9100,
+    port: 9200,
   },
   resolve: {
     alias: {
-      'react-uni-comps': path.resolve(__dirname, './src'),
+      XTouch: path.resolve(__dirname, './src'),
     },
   },
 });

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Touch, { Options } from './Touch';
+import Touch, { Options } from './XTouch';
 
 type Props = {
   /** 手势操作元素,如果是组件，需要forwardRef到dom */
@@ -7,11 +7,11 @@ type Props = {
 } & Options;
 
 const throwCheckError = () => {
-  throw new Error('TouchElement: 子元素必须是dom/forwardRef到dom的组件');
+  throw new Error('XTouchElement: 子元素必须是dom/forwardRef到dom的组件');
 };
 
 /** 给子元素添加手势操作 */
-const TouchElement = React.forwardRef<HTMLElement, Props>((props, ref) => {
+const XTouchElement = React.forwardRef<HTMLElement, Props>((props, ref) => {
   const { children, ...rest } = props;
   const elRef = React.useRef<HTMLElement>();
 
@@ -38,6 +38,6 @@ const TouchElement = React.forwardRef<HTMLElement, Props>((props, ref) => {
   return React.cloneElement(children, { ref: elRef });
 });
 
-TouchElement.displayName = 'TouchElement';
+XTouchElement.displayName = 'XTouchElement';
 
-export default TouchElement;
+export default XTouchElement;
