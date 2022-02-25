@@ -14,7 +14,7 @@ pack(true, {
   },
   resolve: {
     alias: {
-      XTouch: path.resolve(__dirname, './src'),
+      'w-touch': path.resolve(__dirname, './src'),
     },
   },
 });
