@@ -49,5 +49,5 @@ export declare type Options = Partial<{
   ) => void;
 }>;
 /** 手势操作 */
-declare const XTouch: (el: Element, option: Options) => void;
-export default XTouch;
+declare const Touch: (el: Element, option: Options) => void;
+export default Touch;

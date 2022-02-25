@@ -1,28 +1,26 @@
-# xtouch
-
 鼠标手势操作
 
-默认导出: XTouch
+默认导出: Touch
 
 ```js
 
-  import XTouch from 'w-touch';
+  import Touch from 'w-touch';
 
   // 构造对象
-  const fg = new XTouch(el,options);
+  const t = new Touch(el,options);
 
   // 销毁对象
-  fg.destroy.();
+  t.destroy.();
 
 ```
 
-React binding (XTouchElement)
+React 绑定 (TouchElement)
 
 ```js
 import React, { useRef, useEffect } from 'react';
 import { AutoCenter, Toast } from 'react-uni-comps';
 import DemoBlock from './common/DemoBlock';
-import { XTouchElement } from 'w-touch';
+import { TouchElement } from 'w-touch';
 
 type Position = {
   x: number;
@@ -56,7 +54,7 @@ export default function App() {
 
       <DemoBlock title="手指/鼠标操作">
         <AutoCenter>
-          <XTouchElement
+          <TouchElement
             onSingleTap={() => {
               Toast.show('tap');
             }}
@@ -107,7 +105,7 @@ export default function App() {
                 position: 'relative',
               }}
             />
-          </XTouchElement>
+          </TouchElement>
         </AutoCenter>
       </DemoBlock>
     </div>

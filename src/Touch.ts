@@ -95,7 +95,7 @@ export type Options = Partial<{
 }>;
 
 /** 手势操作 */
-const XTouch: (el: Element, option: Options) => void = function (el: Element, option: Options) {
+const Touch: (el: Element, option: Options) => void = function (el: Element, option: Options) {
   this.element = el;
 
   this.start = this.start.bind(this);
@@ -153,7 +153,7 @@ const XTouch: (el: Element, option: Options) => void = function (el: Element, op
   this.preTapPosition = { x: null, y: null };
 };
 
-XTouch.prototype = {
+Touch.prototype = {
   start: function (evt) {
     if (!evt.touches) {
       evt.touches = evt.touches || [];
@@ -440,4 +440,4 @@ XTouch.prototype = {
   },
 };
 
-export default XTouch;
+export default Touch;

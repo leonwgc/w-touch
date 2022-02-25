@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { AutoCenter, Toast } from 'react-uni-comps';
 import DemoBlock from './common/DemoBlock';
-import { XTouchElement } from 'w-touch';
+import { TouchElement } from 'w-touch';
 
 type Position = {
   x: number;
@@ -35,7 +35,7 @@ export default function App() {
 
       <DemoBlock title="手指/鼠标操作">
         <AutoCenter>
-          <XTouchElement
+          <TouchElement
             onSingleTap={() => {
               Toast.show('tap');
             }}
@@ -86,7 +86,7 @@ export default function App() {
                 position: 'relative',
               }}
             />
-          </XTouchElement>
+          </TouchElement>
         </AutoCenter>
       </DemoBlock>
     </div>
