@@ -63,10 +63,10 @@ Handler.prototype.dispatch = function (...args) {
 };
 
 function wrapFunc(el, handler) {
-  const handlerAdmin = new Handler(el);
-  handlerAdmin.add(handler);
+  const h = new Handler(el);
+  h.add(handler);
 
-  return handlerAdmin;
+  return h;
 }
 
 export type Options = Partial<{

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { AutoCenter, Toast } from 'react-uni-comps';
 import DemoBlock from './common/DemoBlock';
-import { XTouchElement } from 'XTouch';
+import { XTouchElement } from 'w-touch';
 
 type Position = {
   x: number;

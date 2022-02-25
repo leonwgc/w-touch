@@ -6,7 +6,7 @@
 
 ```js
 
-  import XTouch from 'XTouch';
+  import XTouch from 'w-touch';
 
   // 构造对象
   const fg = new XTouch(el,options);
@@ -16,14 +16,13 @@
 
 ```
 
-
 React binding (XTouchElement)
 
 ```js
 import React, { useRef, useEffect } from 'react';
 import { AutoCenter, Toast } from 'react-uni-comps';
 import DemoBlock from './common/DemoBlock';
-import { XTouchElement } from 'XTouch';
+import { XTouchElement } from 'w-touch';
 
 type Position = {
   x: number;
