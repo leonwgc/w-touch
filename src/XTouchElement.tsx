@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Touch, { Options } from './XTouch';
+import XTouch, { Options } from './XTouch';
 
 type Props = {
   /** 手势操作元素,如果是组件，需要forwardRef到dom */
@@ -23,7 +23,7 @@ const XTouchElement = React.forwardRef<HTMLElement, Props>((props, ref) => {
       throwCheckError();
     }
 
-    const fg = new Touch(el, rest as Options);
+    const fg = new XTouch(el, rest as Options);
 
     return () => {
       fg.destroy?.();
