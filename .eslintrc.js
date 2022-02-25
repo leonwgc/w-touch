@@ -2,11 +2,6 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   plugins: ['react', 'react-hooks', '@typescript-eslint'],
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -23,7 +18,6 @@ module.exports = {
     __production__: true,
     __dev__: true,
     __env__: true,
-    iHealthBridge: true,
   },
   parserOptions: {
     ecmaVersion: 6,
