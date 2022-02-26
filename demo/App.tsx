@@ -29,11 +29,11 @@ export default function App() {
 
   return (
     <div>
-      <DemoBlock title="当前值：">
+      <DemoBlock title="当前：">
         <div ref={statusElRef}></div>
       </DemoBlock>
 
-      <DemoBlock title="手指/鼠标操作">
+      <DemoBlock title="手指/鼠标操作方块">
         <AutoCenter>
           <TouchElement
             onSingleTap={() => {

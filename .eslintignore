@@ -3,3 +3,4 @@ node_modules
 dist
 demo
 packx.config.js
+docs
