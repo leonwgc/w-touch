@@ -10,25 +10,25 @@
         l = i(925),
         a = 'undefined' != typeof window && void 0 !== window.ontouchstart,
         u = function () {},
-        c = function (t) {
+        r = function (t) {
           return Math.sqrt(t.x * t.x + t.y * t.y);
         };
-      var r = function (t) {
+      var c = function (t) {
         (this.handlers = []), (this.el = t);
       };
       function p(t, e) {
-        var i = new r(t);
+        var i = new c(t);
         return i.add(e), i;
       }
-      (r.prototype.add = function (t) {
+      (c.prototype.add = function (t) {
         this.handlers.push(t);
       }),
-        (r.prototype.del = function (t) {
+        (c.prototype.del = function (t) {
           t || (this.handlers = []);
           for (var e = this.handlers.length; e >= 0; e--)
             this.handlers[e] === t && this.handlers.splice(e, 1);
         }),
-        (r.prototype.dispatch = function () {
+        (c.prototype.dispatch = function () {
           for (var t = arguments.length, e = new Array(t), i = 0; i < t; i++) e[i] = arguments[i];
           for (var s = 0, n = this.handlers.length; s < n; s++) {
             var h,
@@ -106,7 +106,7 @@
             var i = { x: t.touches[1].pageX - this.x1, y: t.touches[1].pageY - this.y1 };
             (e.x = i.x),
               (e.y = i.y),
-              (this.pinchStartLen = c(e)),
+              (this.pinchStartLen = r(e)),
               this.multipointStart.dispatch(t, this.element);
           }
           (this._preventTap = !1),
@@ -128,14 +128,14 @@
               a = t.touches[0].pageY;
             if (((this.isDoubleTap = !1), o > 1)) {
               var u = t.touches[1].pageX,
-                r = t.touches[1].pageY,
+                c = t.touches[1].pageY,
                 p = { x: t.touches[1].pageX - l, y: t.touches[1].pageY - a };
               null !== h.x &&
                 (this.pinchStartLen > 0 &&
-                  ((t.scale = c(p) / this.pinchStartLen), this.pinch.dispatch(t, this.element)),
+                  ((t.scale = r(p) / this.pinchStartLen), this.pinch.dispatch(t, this.element)),
                 (t.angle =
                   ((n = (function (t, e) {
-                    var i = c(t) * c(e);
+                    var i = r(t) * r(e);
                     if (0 === i) return 0;
                     var s =
                       (function (t, e) {
@@ -152,11 +152,11 @@
                 (h.y = p.y),
                 null !== this.x2 && null !== this.sx2
                   ? ((t.deltaX = (l - this.x2 + u - this.sx2) / 2),
-                    (t.deltaY = (a - this.y2 + r - this.sy2) / 2))
+                    (t.deltaY = (a - this.y2 + c - this.sy2) / 2))
                   : ((t.deltaX = 0), (t.deltaY = 0)),
                 this.twoFingerPressMove.dispatch(t, this.element),
                 (this.sx2 = u),
-                (this.sy2 = r);
+                (this.sy2 = c);
             } else {
               if (null !== this.x2) {
                 (t.deltaX = l - this.x2), (t.deltaY = a - this.y2);
@@ -347,7 +347,7 @@
           i = (0, s.useRef)();
         return (
           (0, h.Z)(function () {
-            document.title = 'w-touch: 操作皮卡丘';
+            document.title = 'w-touch: 鼠标,手势库';
           }),
           (0, s.useEffect)(function () {
             x(e.current, t.current, i.current);
@@ -359,17 +359,11 @@
             s.createElement(
               f,
               {
-                onSingleTap: function () {
-                  o.Z.show({ modal: !1, duration: 400, content: '你点击了皮卡丘' });
-                },
                 onDoubleTap: function () {
                   o.Z.show({ modal: !1, duration: 400, content: '你双击了皮卡丘' });
                 },
                 onLongTap: function () {
                   o.Z.show({ modal: !1, duration: 400, content: '你长按了皮卡丘' });
-                },
-                onSwipe: function (t) {
-                  o.Z.show({ modal: !1, duration: 400, content: '拖动方向' + t.direction });
                 },
                 onPinch: function (s) {
                   (t.current.scale = s.scale), x(e.current, t.current, i.current);
@@ -387,7 +381,16 @@
                 },
                 ref: e,
               },
-              s.createElement('img', { src: y, style: { touchAction: 'none' } })
+              s.createElement('div', {
+                style: {
+                  touchAction: 'none',
+                  width: 200,
+                  height: 200,
+                  background: 'center / contain no-repeat url('.concat(y, ')'),
+                  marginLeft: 100,
+                  marginTop: 100,
+                },
+              })
             )
           )
         );

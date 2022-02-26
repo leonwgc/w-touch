@@ -24,7 +24,7 @@ export default function App() {
   const statusElRef = useRef<HTMLDivElement>();
 
   useMount(() => {
-    document.title = 'w-touch: 操作皮卡丘';
+    document.title = 'w-touch: 鼠标,手势库';
   });
 
   useEffect(() => {
@@ -35,13 +35,6 @@ export default function App() {
     <div>
       <div ref={statusElRef} style={{ color: '#666', fontSize: 12 }}></div>
       <TouchElement
-        onSingleTap={() => {
-          Toast.show({
-            modal: false,
-            duration: 400,
-            content: '你点击了皮卡丘',
-          });
-        }}
         onDoubleTap={() => {
           Toast.show({
             modal: false,
@@ -54,13 +47,6 @@ export default function App() {
             modal: false,
             duration: 400,
             content: '你长按了皮卡丘',
-          });
-        }}
-        onSwipe={(e) => {
-          Toast.show({
-            modal: false,
-            duration: 400,
-            content: '拖动方向' + e.direction,
           });
         }}
         onPinch={(e) => {
@@ -83,7 +69,16 @@ export default function App() {
         }}
         ref={elRef}
       >
-        <img src={pkq} style={{ touchAction: 'none' }} />
+        <div
+          style={{
+            touchAction: 'none',
+            width: 200,
+            height: 200,
+            background: `center / contain no-repeat url(${pkq})`,
+            marginLeft: 100,
+            marginTop: 100,
+          }}
+        />
       </TouchElement>
     </div>
   );
