@@ -83,7 +83,7 @@ export default function App() {
         }}
         ref={elRef}
       >
-        <img src={pkq} />
+        <img src={pkq} style={{ touchAction: 'none' }} />
       </TouchElement>
     </div>
   );

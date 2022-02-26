@@ -387,7 +387,7 @@
                 },
                 ref: e,
               },
-              s.createElement('img', { src: y })
+              s.createElement('img', { src: y, style: { touchAction: 'none' } })
             )
           )
         );
