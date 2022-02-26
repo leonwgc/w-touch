@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
-import { AutoCenter, Toast } from 'react-uni-comps';
-import DemoBlock from './common/DemoBlock';
+import { Toast, useMount } from 'react-uni-comps';
 import { TouchElement } from 'w-touch';
+import pkq from './images/pkq.png';
 
 type Position = {
   x: number;
@@ -14,7 +14,7 @@ const update = (el, transform, statusEl) => {
   const cssTransform = `translate(${transform.x}px,${transform.y}px) rotate(${transform.angle}deg) scale(${transform.scale})`;
 
   el.style.transform = cssTransform;
-  statusEl.innerText = cssTransform;
+  statusEl.innerText = '坐标: ' + cssTransform;
 };
 
 export default function App() {
@@ -23,72 +23,52 @@ export default function App() {
 
   const statusElRef = useRef<HTMLDivElement>();
 
+  useMount(() => {
+    document.title = 'w-touch: 操作皮卡丘';
+  });
+
   useEffect(() => {
     update(elRef.current, ref.current, statusElRef.current);
   }, []);
 
   return (
     <div>
-      <DemoBlock title="当前：">
-        <div ref={statusElRef}></div>
-      </DemoBlock>
+      <div ref={statusElRef} style={{ color: '#666', fontSize: 12 }}></div>
+      <TouchElement
+        onSingleTap={() => {
+          Toast.show('你点击了皮卡丘');
+        }}
+        onDoubleTap={() => {
+          Toast.show('你双击了皮卡丘');
+        }}
+        onLongTap={() => {
+          Toast.show('你长按了皮卡丘');
+        }}
+        onSwipe={(e) => {
+          Toast.show('拖动方向' + e.direction);
+        }}
+        onPinch={(e) => {
+          ref.current.scale = e.scale;
+          update(elRef.current, ref.current, statusElRef.current);
+        }}
+        onRotate={(e) => {
+          ref.current.angle += e.angle;
+          update(elRef.current, ref.current, statusElRef.current);
+        }}
+        onPressMove={(e) => {
+          ref.current.x = ref.current.x + e.deltaX;
+          ref.current.y = ref.current.y + e.deltaY;
 
-      <DemoBlock title="手指/鼠标操作方块">
-        <AutoCenter>
-          <TouchElement
-            onSingleTap={() => {
-              Toast.show('tap');
-            }}
-            onDoubleTap={() => {
-              Toast.show('doubleTap');
-            }}
-            onLongTap={() => {
-              Toast.show('longTap');
-            }}
-            onTouchStart={() => {
-              console.log('start');
-            }}
-            onTouchEnd={(e) => {
-              console.log('end');
-            }}
-            onSwipe={(e) => {
-              console.log('swipe', e.direction);
-            }}
-            onPinch={(e) => {
-              console.log('scale:', e.scale);
-              ref.current.scale = e.scale;
-              update(elRef.current, ref.current, statusElRef.current);
-            }}
-            onRotate={(e) => {
-              console.log('angle:', e.angle);
-              ref.current.angle += e.angle;
-              update(elRef.current, ref.current, statusElRef.current);
-            }}
-            onPressMove={(e) => {
-              console.log(e.deltaX, e.deltaY);
-              ref.current.x = ref.current.x + e.deltaX;
-              ref.current.y = ref.current.y + e.deltaY;
-
-              update(elRef.current, ref.current, statusElRef.current);
-            }}
-            onTwoFingerPressMove={(e) => {
-              console.log(e.deltaX, e.deltaY);
-              ref.current.x = ref.current.x + e.deltaX;
-              ref.current.y = ref.current.y + e.deltaY;
-            }}
-            ref={elRef}
-          >
-            <div
-              style={{
-                width: 120,
-                height: 120,
-                border: '1px solid red',
-                position: 'relative',
-              }}
-            />
-          </TouchElement>
-        </AutoCenter>
-      </DemoBlock>
+          update(elRef.current, ref.current, statusElRef.current);
+        }}
+        onTwoFingerPressMove={(e) => {
+          ref.current.x = ref.current.x + e.deltaX;
+          ref.current.y = ref.current.y + e.deltaY;
+        }}
+        ref={elRef}
+      >
+        <img src={pkq} />
+      </TouchElement>
     </div>
   );
 }
