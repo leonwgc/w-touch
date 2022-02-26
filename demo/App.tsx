@@ -36,16 +36,28 @@ export default function App() {
       <div ref={statusElRef} style={{ color: '#666', fontSize: 12 }}></div>
       <TouchElement
         onSingleTap={() => {
-          Toast.show('你点击了皮卡丘');
+          Toast.show({
+            modal: false,
+            content: '你点击了皮卡丘',
+          });
         }}
         onDoubleTap={() => {
-          Toast.show('你双击了皮卡丘');
+          Toast.show({
+            modal: false,
+            content: '你双击了皮卡丘',
+          });
         }}
         onLongTap={() => {
-          Toast.show('你长按了皮卡丘');
+          Toast.show({
+            modal: false,
+            content: '你长按了皮卡丘',
+          });
         }}
         onSwipe={(e) => {
-          Toast.show('拖动方向' + e.direction);
+          Toast.show({
+            modal: false,
+            content: '拖动方向' + e.direction,
+          });
         }}
         onPinch={(e) => {
           ref.current.scale = e.scale;
