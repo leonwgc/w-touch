@@ -9,8 +9,8 @@
         o = i(305),
         l = i(925),
         a = 'undefined' != typeof window && void 0 !== window.ontouchstart,
-        c = function () {},
-        u = function (t) {
+        u = function () {},
+        c = function (t) {
           return Math.sqrt(t.x * t.x + t.y * t.y);
         };
       var r = function (t) {
@@ -53,21 +53,21 @@
           (this.pinchStartLen = null),
           (this.scale = 1),
           (this.isDoubleTap = !1),
-          (this.rotate = p(this.element, e.onRotate || c)),
-          (this.touchStart = p(this.element, e.onTouchStart || c)),
-          (this.touchMove = p(this.element, e.onTouchMove || c)),
-          (this.touchEnd = p(this.element, e.onTouchEnd || c)),
-          (this.touchCancel = p(this.element, e.onTouchCancel || c)),
+          (this.rotate = p(this.element, e.onRotate || u)),
+          (this.touchStart = p(this.element, e.onTouchStart || u)),
+          (this.touchMove = p(this.element, e.onTouchMove || u)),
+          (this.touchEnd = p(this.element, e.onTouchEnd || u)),
+          (this.touchCancel = p(this.element, e.onTouchCancel || u)),
           (this.isMoving = !1),
-          (this.multipointStart = p(this.element, e.onMultipointStart || c)),
-          (this.multipointEnd = p(this.element, e.onMultipointEnd || c)),
-          (this.pinch = p(this.element, e.onPinch || c)),
-          (this.swipe = p(this.element, e.onSwipe || c)),
-          (this.doubleTap = p(this.element, e.onDoubleTap || c)),
-          (this.longTap = p(this.element, e.onLongTap || c)),
-          (this.singleTap = p(this.element, e.onSingleTap || c)),
-          (this.pressMove = p(this.element, e.onPressMove || c)),
-          (this.twoFingerPressMove = p(this.element, e.onTwoFingerPressMove || c)),
+          (this.multipointStart = p(this.element, e.onMultipointStart || u)),
+          (this.multipointEnd = p(this.element, e.onMultipointEnd || u)),
+          (this.pinch = p(this.element, e.onPinch || u)),
+          (this.swipe = p(this.element, e.onSwipe || u)),
+          (this.doubleTap = p(this.element, e.onDoubleTap || u)),
+          (this.longTap = p(this.element, e.onLongTap || u)),
+          (this.singleTap = p(this.element, e.onSingleTap || u)),
+          (this.pressMove = p(this.element, e.onPressMove || u)),
+          (this.twoFingerPressMove = p(this.element, e.onTwoFingerPressMove || u)),
           (this._cancelAllHandler = this.cancelAll.bind(this)),
           window.addEventListener('scroll', this._cancelAllHandler),
           (this.delta = null),
@@ -106,7 +106,7 @@
             var i = { x: t.touches[1].pageX - this.x1, y: t.touches[1].pageY - this.y1 };
             (e.x = i.x),
               (e.y = i.y),
-              (this.pinchStartLen = u(e)),
+              (this.pinchStartLen = c(e)),
               this.multipointStart.dispatch(t, this.element);
           }
           (this._preventTap = !1),
@@ -127,15 +127,15 @@
               l = t.touches[0].pageX,
               a = t.touches[0].pageY;
             if (((this.isDoubleTap = !1), o > 1)) {
-              var c = t.touches[1].pageX,
+              var u = t.touches[1].pageX,
                 r = t.touches[1].pageY,
                 p = { x: t.touches[1].pageX - l, y: t.touches[1].pageY - a };
               null !== h.x &&
                 (this.pinchStartLen > 0 &&
-                  ((t.scale = u(p) / this.pinchStartLen), this.pinch.dispatch(t, this.element)),
+                  ((t.scale = c(p) / this.pinchStartLen), this.pinch.dispatch(t, this.element)),
                 (t.angle =
                   ((n = (function (t, e) {
-                    var i = u(t) * u(e);
+                    var i = c(t) * c(e);
                     if (0 === i) return 0;
                     var s =
                       (function (t, e) {
@@ -151,11 +151,11 @@
                 (h.x = p.x),
                 (h.y = p.y),
                 null !== this.x2 && null !== this.sx2
-                  ? ((t.deltaX = (l - this.x2 + c - this.sx2) / 2),
+                  ? ((t.deltaX = (l - this.x2 + u - this.sx2) / 2),
                     (t.deltaY = (a - this.y2 + r - this.sy2) / 2))
                   : ((t.deltaX = 0), (t.deltaY = 0)),
                 this.twoFingerPressMove.dispatch(t, this.element),
-                (this.sx2 = c),
+                (this.sx2 = u),
                 (this.sy2 = r);
             } else {
               if (null !== this.x2) {
@@ -360,16 +360,16 @@
               f,
               {
                 onSingleTap: function () {
-                  o.Z.show({ modal: !1, content: '你点击了皮卡丘' });
+                  o.Z.show({ modal: !1, duration: 400, content: '你点击了皮卡丘' });
                 },
                 onDoubleTap: function () {
-                  o.Z.show({ modal: !1, content: '你双击了皮卡丘' });
+                  o.Z.show({ modal: !1, duration: 400, content: '你双击了皮卡丘' });
                 },
                 onLongTap: function () {
-                  o.Z.show({ modal: !1, content: '你长按了皮卡丘' });
+                  o.Z.show({ modal: !1, duration: 400, content: '你长按了皮卡丘' });
                 },
                 onSwipe: function (t) {
-                  o.Z.show({ modal: !1, content: '拖动方向' + t.direction });
+                  o.Z.show({ modal: !1, duration: 400, content: '拖动方向' + t.direction });
                 },
                 onPinch: function (s) {
                   (t.current.scale = s.scale), x(e.current, t.current, i.current);

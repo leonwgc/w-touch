@@ -38,24 +38,28 @@ export default function App() {
         onSingleTap={() => {
           Toast.show({
             modal: false,
+            duration: 400,
             content: '你点击了皮卡丘',
           });
         }}
         onDoubleTap={() => {
           Toast.show({
             modal: false,
+            duration: 400,
             content: '你双击了皮卡丘',
           });
         }}
         onLongTap={() => {
           Toast.show({
             modal: false,
+            duration: 400,
             content: '你长按了皮卡丘',
           });
         }}
         onSwipe={(e) => {
           Toast.show({
             modal: false,
+            duration: 400,
             content: '拖动方向' + e.direction,
           });
         }}
