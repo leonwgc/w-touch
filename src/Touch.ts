@@ -1,5 +1,5 @@
 /** 鼠标/触屏事件 */
-export type XTouchEvent = TouchEvent | MouseEvent;
+export type WTouchEvent = TouchEvent | MouseEvent;
 
 /** 是否支持触屏 */
 export const isTouch = typeof window !== 'undefined' && window.ontouchstart !== undefined;
@@ -70,12 +70,12 @@ function wrapFunc(el, handler) {
 }
 
 export type Options = Partial<{
-  onTouchStart: (evt: TouchEvent | MouseEvent) => void;
-  onTouchMove: (evt: XTouchEvent) => void;
-  onTouchEnd: (evt: XTouchEvent) => void;
-  onTouchCancel: (evt: XTouchEvent) => void;
-  onMultipointStart: (evt: XTouchEvent) => void;
-  onMultipointEnd: (evt: XTouchEvent) => void;
+  onTouchStart: (evt: WTouchEvent) => void;
+  onTouchMove: (evt: WTouchEvent) => void;
+  onTouchEnd: (evt: WTouchEvent) => void;
+  onTouchCancel: (evt: WTouchEvent) => void;
+  onMultipointStart: (evt: WTouchEvent) => void;
+  onMultipointEnd: (evt: WTouchEvent) => void;
   /** 点两次 */
   onDoubleTap: () => void;
   /** 长按 */
@@ -83,15 +83,15 @@ export type Options = Partial<{
   /** 按一次 */
   onSingleTap: () => void;
   /** 旋转, 单位:deg */
-  onRotate: (evt: XTouchEvent & { angle: number }) => void;
+  onRotate: (evt: WTouchEvent & { angle: number }) => void;
   /** 缩放  */
-  onPinch: (evt: XTouchEvent & { scale: number }) => void;
+  onPinch: (evt: WTouchEvent & { scale: number }) => void;
   /** 单指滑动 */
-  onPressMove: (evt: XTouchEvent & { deltaX: number; deltaY: number }) => void;
-  /** 左右滑动 */
-  onSwipe: (evt: XTouchEvent & { direction: 'left' | 'right' | 'up' | 'down' }) => void;
+  onPressMove: (evt: WTouchEvent & { deltaX: number; deltaY: number }) => void;
+  /** 滑动方向判断 */
+  onSwipe: (evt: WTouchEvent & { direction: 'left' | 'right' | 'up' | 'down' }) => void;
   /** 双指滑动 */
-  onTwoFingerPressMove: (evt: XTouchEvent & { deltaX: number; deltaY: number }) => void;
+  onTwoFingerPressMove: (evt: WTouchEvent & { deltaX: number; deltaY: number }) => void;
 }>;
 
 /** 手势操作 */

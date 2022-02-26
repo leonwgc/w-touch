@@ -15,9 +15,9 @@
     "two finger"
   ],
   "license": "MIT",
-  "repository": "https://github.com/leonwgc/xtouch",
+  "repository": "https://github.com/leonwgc/w-touch",
   "bugs": {
-    "url": "https://github.com/leonwgc/xtouch/issues"
+    "url": "https://github.com/leonwgc/w-touch/issues"
   },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
