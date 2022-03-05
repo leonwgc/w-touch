@@ -1,7 +1,8 @@
 ### 特点
 
-1. 支持桌面端鼠标和触屏设备手指操作 (统一 Mouse & Touch)
+1. 支持鼠标和手指操作 (统一 Mouse & Touch)
 2. 使用 TypeScript 编写，内置 TypeScript 类型定义文件，良好的智能提示
+3. 支持js原生使用和react
 
 ### 支持的操作
 
