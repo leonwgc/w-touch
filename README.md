@@ -24,7 +24,7 @@
   const t = new Touch(el,options);
 
   // 销毁对象
-  t.destroy.();
+  t.destroy();
 
 ```
 
