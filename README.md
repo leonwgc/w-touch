@@ -1,6 +1,5 @@
-# 鼠标,手势库
-
 ### 特点
+
 1. 支持桌面端鼠标和触屏设备手指操作 (统一 Mouse & Touch)
 2. 使用 TypeScript 编写，内置 TypeScript 类型定义文件，良好的智能提示
 
@@ -11,10 +10,9 @@
 3. 长按 onLongTap
 4. 旋转 onRotate
 5. 缩放 onPinch
-6. 单指滑动 onPressMove 
+6. 单指滑动 onPressMove
 7. 滑动方向判断 onSwipe
 8. 双指滑动 onTwoFingerPressMove
-
 
 ## javascript 使用
 
@@ -34,7 +32,6 @@
 
 ```js
 import React, { useRef, useEffect } from 'react';
-import { AutoCenter, Toast } from 'react-uni-comps';
 import DemoBlock from './common/DemoBlock';
 import { TouchElement } from 'w-touch';
 
@@ -69,26 +66,7 @@ export default function App() {
       </DemoBlock>
 
       <DemoBlock title="手指/鼠标操作">
-        <AutoCenter>
           <TouchElement
-            onSingleTap={() => {
-              Toast.show('tap');
-            }}
-            onDoubleTap={() => {
-              Toast.show('doubleTap');
-            }}
-            onLongTap={() => {
-              Toast.show('longTap');
-            }}
-            onTouchStart={() => {
-              console.log('start');
-            }}
-            onTouchEnd={(e) => {
-              console.log('end');
-            }}
-            onSwipe={(e) => {
-              console.log('swipe', e.direction);
-            }}
             onPinch={(e) => {
               console.log('scale:', e.scale);
               ref.current.scale = e.scale;
@@ -105,14 +83,7 @@ export default function App() {
               ref.current.y = ref.current.y + e.deltaY;
 
               update(elRef.current, ref.current, statusElRef.current);
-            }}
-            onTwoFingerPressMove={(e) => {
-              console.log(e.deltaX, e.deltaY);
-              ref.current.x = ref.current.x + e.deltaX;
-              ref.current.y = ref.current.y + e.deltaY;
-            }}
-            ref={elRef}
-          >
+            }} >
             <div
               style={{
                 width: 120,
@@ -122,7 +93,6 @@ export default function App() {
               }}
             />
           </TouchElement>
-        </AutoCenter>
       </DemoBlock>
     </div>
   );
@@ -134,29 +104,27 @@ export default function App() {
 
 ```js
 type Options = Partial<{
-  onTouchStart: (evt: WTouchEvent) => void;
-  onTouchMove: (evt: WTouchEvent) => void;
-  onTouchEnd: (evt: WTouchEvent) => void;
-  onTouchCancel: (evt: WTouchEvent) => void;
-  onMultipointStart: (evt: WTouchEvent) => void;
-  onMultipointEnd: (evt: WTouchEvent) => void;
+  onTouchStart: (evt: WTouchEvent) => void,
+  onTouchMove: (evt: WTouchEvent) => void,
+  onTouchEnd: (evt: WTouchEvent) => void,
+  onTouchCancel: (evt: WTouchEvent) => void,
+  onMultipointStart: (evt: WTouchEvent) => void,
+  onMultipointEnd: (evt: WTouchEvent) => void,
   /** 点两次 */
-  onDoubleTap: () => void;
+  onDoubleTap: () => void,
   /** 长按 */
-  onLongTap: () => void;
+  onLongTap: () => void,
   /** 按一次 */
-  onSingleTap: () => void;
+  onSingleTap: () => void,
   /** 旋转, 单位:deg */
-  onRotate: (evt: WTouchEvent & { angle: number }) => void;
+  onRotate: (evt: WTouchEvent & { angle: number }) => void,
   /** 缩放  */
-  onPinch: (evt: WTouchEvent & { scale: number }) => void;
+  onPinch: (evt: WTouchEvent & { scale: number }) => void,
   /** 单指滑动 */
-  onPressMove: (evt: WTouchEvent & { deltaX: number; deltaY: number }) => void;
+  onPressMove: (evt: WTouchEvent & { deltaX: number, deltaY: number }) => void,
   /** 左右滑动 */
-  onSwipe: (evt: WTouchEvent & { direction: 'left' | 'right' | 'up' | 'down' }) => void;
+  onSwipe: (evt: WTouchEvent & { direction: 'left' | 'right' | 'up' | 'down' }) => void,
   /** 双指滑动 */
-  onTwoFingerPressMove: (evt: WTouchEvent & { deltaX: number; deltaY: number }) => void;
+  onTwoFingerPressMove: (evt: WTouchEvent & { deltaX: number, deltaY: number }) => void,
 }>;
 ```
-
-
