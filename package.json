@@ -1,7 +1,7 @@
 {
   "name": "w-touch",
-  "version": "1.0.2",
-  "description": "鼠标手势操作",
+  "version": "1.0.3",
+  "description": "桌面和移动端手势库 desktop & mobile gesture lib",
   "keywords": [
     "touch",
     "gesture",
