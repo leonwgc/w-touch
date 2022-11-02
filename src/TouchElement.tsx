@@ -13,7 +13,7 @@ const throwCheckError = () => {
 /** 给子元素添加手势操作 */
 const TouchElement = React.forwardRef<HTMLElement, Props>((props, ref) => {
   const { children, ...rest } = props;
-  const elRef = React.useRef<HTMLElement>();
+  const elRef = React.useRef<HTMLElement>(null);
 
   React.useImperativeHandle(ref, () => elRef.current);
 
@@ -35,7 +35,7 @@ const TouchElement = React.forwardRef<HTMLElement, Props>((props, ref) => {
     throwCheckError();
   }
 
-  return React.cloneElement(children, { ref: elRef });
+  return <children.type {...(children.props as Record<string, unknown>)} ref={elRef} />;
 });
 
 TouchElement.displayName = 'TouchElement';

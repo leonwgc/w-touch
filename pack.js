@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { default: pack } = require('packx');
+const { default: pack } = require('packw');
 const argv = require('yargs').argv;
 const path = require('path');
 
@@ -10,7 +10,7 @@ pack(!isBuild, {
     index: `./demo/index`,
   },
   output: {
-    path: path.resolve(__dirname, 'docs'),
+    path: path.resolve(__dirname, isBuild ? 'docs' : 'demodist'),
     publicPath: '',
   },
   devServer: {

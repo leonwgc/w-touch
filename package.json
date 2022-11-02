@@ -1,6 +1,6 @@
 {
   "name": "w-touch",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "桌面和移动端手势库 desktop & mobile gesture lib",
   "keywords": [
     "touch",
@@ -25,7 +25,9 @@
   "scripts": {
     "prepare": "husky install",
     "lint-staged": "lint-staged",
-    "build": "father-build --cjs --esm && tsc"
+    "build": "father-build --cjs --esm && tsc",
+    "start": "node pack",
+    "doc": "node pack --build"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -54,7 +56,7 @@
     "father-build": "^1.19.5",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
-    "packx": "^1.1.2",
+    "packw": "^1.2.0",
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
