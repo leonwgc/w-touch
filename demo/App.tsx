@@ -1,6 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import TouchElement from './TouchElement';
 import pkq from './images/pkq.png';
+import vconsole from 'vconsole';
+
+new vconsole();
 
 type Position = {
   x: number;
@@ -19,6 +22,7 @@ const update = (el, transform, statusEl) => {
 export default function App() {
   const ref = useRef<Position>({ x: 0, y: 0, angle: 0, scale: 1 });
   const elRef = useRef<HTMLDivElement>();
+  const [msg, setMsg] = useState('');
 
   const statusElRef = useRef<HTMLDivElement>();
 
@@ -28,21 +32,14 @@ export default function App() {
 
   return (
     <div>
+      <div style={{ color: '#005cff', fontSize: 18 }}>{msg}</div>
       <div ref={statusElRef} style={{ color: '#666', fontSize: 12 }}></div>
       <TouchElement
         onDoubleTap={() => {
-          Toast.show({
-            modal: false,
-            duration: 400,
-            content: '你双击了皮卡丘',
-          });
+          setMsg('你双击了皮卡丘');
         }}
         onLongTap={() => {
-          Toast.show({
-            modal: false,
-            duration: 400,
-            content: '你长按了皮卡丘',
-          });
+          setMsg('你长按了皮卡丘');
         }}
         onPinch={(e) => {
           ref.current.scale = e.scale;
@@ -67,6 +64,7 @@ export default function App() {
         <div
           style={{
             touchAction: 'none',
+            userSelect: 'none',
             width: 200,
             height: 200,
             background: `center / contain no-repeat url(${pkq})`,

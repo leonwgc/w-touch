@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "strict": false,
     "baseUrl": ".",
     // Ensure that .d.ts files are created by tsc, but not .js files
     "declaration": true,

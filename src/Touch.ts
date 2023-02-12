@@ -1,5 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /** 鼠标/触屏事件 */
 export type WTouchEvent = TouchEvent | MouseEvent;
+
+type Point = { x: number; y: number };
+
+type voidFunc = () => void;
 
 /** 是否支持触屏 */
 export const isTouch = typeof window !== 'undefined' && window.ontouchstart !== undefined;
@@ -46,7 +51,7 @@ class Handler {
   add(handler) {
     this.handlers.push(handler);
   }
-  del(handler) {
+  del(handler?) {
     if (!handler) this.handlers = [];
 
     for (let i = this.handlers.length; i >= 0; i--) {
@@ -63,46 +68,22 @@ class Handler {
   }
 }
 
-// const Handler = function (el) {
-//   this.handlers = [];
-//   this.el = el;
-// };
-
-// Handler.prototype.add = function (handler) {
-//   this.handlers.push(handler);
-// };
-
-// Handler.prototype.del = function (handler) {
-//   if (!handler) this.handlers = [];
-
-//   for (let i = this.handlers.length; i >= 0; i--) {
-//     if (this.handlers[i] === handler) {
-//       this.handlers.splice(i, 1);
-//     }
-//   }
-// };
-
-// Handler.prototype.dispatch = function (...args) {
-//   for (let i = 0, len = this.handlers.length; i < len; i++) {
-//     const handler = this.handlers[i];
-//     handler.apply?.(this.el, args);
-//   }
-// };
-
-function wrapFunc(el, handler) {
+function getHandler(el, handler) {
   const h = new Handler(el);
   h.add(handler);
 
   return h;
 }
 
+type WTouchHandler = (evt: WTouchEvent) => void;
+
 export type Options = Partial<{
-  onTouchStart: (evt: WTouchEvent) => void;
-  onTouchMove: (evt: WTouchEvent) => void;
-  onTouchEnd: (evt: WTouchEvent) => void;
-  onTouchCancel: (evt: WTouchEvent) => void;
-  onMultipointStart: (evt: WTouchEvent) => void;
-  onMultipointEnd: (evt: WTouchEvent) => void;
+  onTouchStart: WTouchHandler;
+  onTouchMove: WTouchHandler;
+  onTouchEnd: WTouchHandler;
+  onTouchCancel: WTouchHandler;
+  onMultipointStart: WTouchHandler;
+  onMultipointEnd: WTouchHandler;
   /** 点两次 */
   onDoubleTap: () => void;
   /** 长按 */
@@ -122,67 +103,102 @@ export type Options = Partial<{
 }>;
 
 /** 手势操作 */
-const Touch: (el: Element, option: Options) => void = function (el: Element, option: Options) {
-  this.element = el;
+class Touch {
+  element: Element;
+  preV: Point;
+  pinchStartLen: number;
+  scale: number;
+  isDoubleTap: boolean;
+  rotate: Handler;
+  touchStart: Handler;
+  touchMove: Handler;
+  touchEnd: Handler;
+  touchCancel: Handler;
+  isMoving: boolean;
+  multipointStart: Handler;
+  multipointEnd: Handler;
+  pinch: Handler;
+  swipe: Handler;
+  doubleTap: Handler;
+  longTap: Handler;
+  singleTap: Handler;
+  pressMove: Handler;
+  twoFingerPressMove: Handler;
+  _cancelAllHandler: voidFunc;
+  delta: number;
+  last: number;
+  now: number;
+  tapTimeout: number;
+  singleTapTimeout: number;
+  longTapTimeout: number;
+  swipeTimeout: number;
+  x1: number;
+  x2: number;
+  y1: number;
+  y2: number;
+  preTapPosition: Point;
+  _preventTap: boolean;
+  sx2: number;
+  sy2: number;
+  constructor(el: Element, option: Options) {
+    this.element = el;
 
-  this.start = this.start.bind(this);
-  this.move = this.move.bind(this);
-  this.end = this.end.bind(this);
-  this.cancel = this.cancel.bind(this);
+    this.start = this.start.bind(this);
+    this.move = this.move.bind(this);
+    this.end = this.end.bind(this);
+    this.cancel = this.cancel.bind(this);
 
-  this.element.addEventListener(isTouch ? 'touchstart' : 'mousedown', this.start);
+    this.element.addEventListener(isTouch ? 'touchstart' : 'mousedown', this.start);
 
-  if (isTouch) {
-    this.element.addEventListener('touchmove', this.move);
-    this.element.addEventListener('touchend', this.end);
-    this.element.addEventListener('touchcancel', this.cancel);
-  } else {
-    document.addEventListener('mousemove', this.move);
-    document.addEventListener('mouseup', this.end);
+    if (isTouch) {
+      this.element.addEventListener('touchmove', this.move);
+      this.element.addEventListener('touchend', this.end);
+      this.element.addEventListener('touchcancel', this.cancel);
+    } else {
+      document.addEventListener('mousemove', this.move);
+      document.addEventListener('mouseup', this.end);
+    }
+
+    this.preV = { x: null, y: null };
+    this.pinchStartLen = null;
+    this.scale = 1;
+    this.isDoubleTap = false;
+
+    this.rotate = getHandler(this.element, option.onRotate || noop);
+
+    this.touchStart = getHandler(this.element, option.onTouchStart || noop);
+    this.touchMove = getHandler(this.element, option.onTouchMove || noop);
+    this.touchEnd = getHandler(this.element, option.onTouchEnd || noop);
+    this.touchCancel = getHandler(this.element, option.onTouchCancel || noop);
+    this.isMoving = false;
+
+    this.multipointStart = getHandler(this.element, option.onMultipointStart || noop);
+    this.multipointEnd = getHandler(this.element, option.onMultipointEnd || noop);
+    this.pinch = getHandler(this.element, option.onPinch || noop);
+    this.swipe = getHandler(this.element, option.onSwipe || noop);
+
+    this.doubleTap = getHandler(this.element, option.onDoubleTap || noop);
+    this.longTap = getHandler(this.element, option.onLongTap || noop);
+    this.singleTap = getHandler(this.element, option.onSingleTap || noop);
+    this.pressMove = getHandler(this.element, option.onPressMove || noop);
+    this.twoFingerPressMove = getHandler(this.element, option.onTwoFingerPressMove || noop);
+
+    this._cancelAllHandler = this.cancelAll.bind(this);
+
+    window.addEventListener('scroll', this._cancelAllHandler);
+
+    this.delta = null;
+    this.last = null;
+    this.now = null;
+    this.tapTimeout = null;
+    this.singleTapTimeout = null;
+    this.longTapTimeout = null;
+    this.swipeTimeout = null;
+    this.x1 = this.x2 = this.y1 = this.y2 = null;
+    this.preTapPosition = { x: null, y: null };
   }
-
-  this.preV = { x: null, y: null };
-  this.pinchStartLen = null;
-  this.scale = 1;
-  this.isDoubleTap = false;
-
-  this.rotate = wrapFunc(this.element, option.onRotate || noop);
-
-  this.touchStart = wrapFunc(this.element, option.onTouchStart || noop);
-  this.touchMove = wrapFunc(this.element, option.onTouchMove || noop);
-  this.touchEnd = wrapFunc(this.element, option.onTouchEnd || noop);
-  this.touchCancel = wrapFunc(this.element, option.onTouchCancel || noop);
-  this.isMoving = false;
-
-  this.multipointStart = wrapFunc(this.element, option.onMultipointStart || noop);
-  this.multipointEnd = wrapFunc(this.element, option.onMultipointEnd || noop);
-  this.pinch = wrapFunc(this.element, option.onPinch || noop);
-  this.swipe = wrapFunc(this.element, option.onSwipe || noop);
-
-  this.doubleTap = wrapFunc(this.element, option.onDoubleTap || noop);
-  this.longTap = wrapFunc(this.element, option.onLongTap || noop);
-  this.singleTap = wrapFunc(this.element, option.onSingleTap || noop);
-  this.pressMove = wrapFunc(this.element, option.onPressMove || noop);
-  this.twoFingerPressMove = wrapFunc(this.element, option.onTwoFingerPressMove || noop);
-
-  this._cancelAllHandler = this.cancelAll.bind(this);
-
-  window.addEventListener('scroll', this._cancelAllHandler);
-
-  this.delta = null;
-  this.last = null;
-  this.now = null;
-  this.tapTimeout = null;
-  this.singleTapTimeout = null;
-  this.longTapTimeout = null;
-  this.swipeTimeout = null;
-  this.x1 = this.x2 = this.y1 = this.y2 = null;
-  this.preTapPosition = { x: null, y: null };
-};
-
-Touch.prototype = {
-  start: function (evt) {
-    if (!evt.touches) {
+  start(evt): void {
+    if (!(evt as TouchEvent).touches) {
       evt.touches = evt.touches || [];
       evt.touches[0] = {
         pageX: evt.pageX,
@@ -220,15 +236,15 @@ Touch.prototype = {
       this.multipointStart.dispatch(evt, this.element);
     }
     this._preventTap = false;
-    this.longTapTimeout = setTimeout(
+    this.longTapTimeout = window.setTimeout(
       function () {
         this.longTap.dispatch(evt, this.element);
         this._preventTap = true;
       }.bind(this),
       750
     );
-  },
-  move: function (evt) {
+  }
+  move(evt) {
     if (!this.isMoving) {
       return;
     }
@@ -300,8 +316,8 @@ Touch.prototype = {
     if (len > 1) {
       evt.preventDefault();
     }
-  },
-  end: function (evt) {
+  }
+  end(evt) {
     if (this.isMoving) {
       this.isMoving = false;
     }
@@ -327,11 +343,11 @@ Touch.prototype = {
       (this.y2 && Math.abs(this.y1 - this.y2) > 30)
     ) {
       evt.direction = this._swipeDirection(this.x1, this.x2, this.y1, this.y2);
-      this.swipeTimeout = setTimeout(function () {
+      this.swipeTimeout = window.setTimeout(function () {
         self.swipe.dispatch(evt, self.element);
       }, 0);
     } else {
-      this.tapTimeout = setTimeout(function () {
+      this.tapTimeout = window.setTimeout(function () {
         if (!self._preventTap) {
           // self.tap?.dispatch(evt, self.element);
         }
@@ -343,7 +359,7 @@ Touch.prototype = {
       }, 0);
 
       if (!self.isDoubleTap) {
-        self.singleTapTimeout = setTimeout(function () {
+        self.singleTapTimeout = window.setTimeout(function () {
           if (!self._preventTap) {
             self.singleTap?.dispatch(evt, self.element);
           }
@@ -358,25 +374,25 @@ Touch.prototype = {
     this.scale = 1;
     this.pinchStartLen = null;
     this.x1 = this.x2 = this.y1 = this.y2 = null;
-  },
-  cancelAll: function () {
+  }
+  cancelAll() {
     this._preventTap = true;
     clearTimeout(this.singleTapTimeout);
 
     clearTimeout(this.longTapTimeout);
     clearTimeout(this.swipeTimeout);
-  },
-  cancel: function (evt) {
+  }
+  cancel(evt) {
     this.cancelAll();
     this.touchCancel.dispatch(evt, this.element);
-  },
-  _cancelLongTap: function () {
+  }
+  _cancelLongTap() {
     clearTimeout(this.longTapTimeout);
-  },
-  _cancelSingleTap: function () {
+  }
+  _cancelSingleTap() {
     clearTimeout(this.singleTapTimeout);
-  },
-  _swipeDirection: function (x1, x2, y1, y2) {
+  }
+  _swipeDirection(x1, x2, y1, y2) {
     return Math.abs(x1 - x2) >= Math.abs(y1 - y2)
       ? x1 - x2 > 0
         ? 'left'
@@ -384,21 +400,21 @@ Touch.prototype = {
       : y1 - y2 > 0
       ? 'up'
       : 'down';
-  },
+  }
 
-  on: function (evt, handler) {
+  on(evt, handler) {
     if (this[evt]) {
       this[evt].add(handler);
     }
-  },
+  }
 
-  off: function (evt, handler) {
+  off(evt, handler) {
     if (this[evt]) {
       this[evt].del(handler);
     }
-  },
+  }
 
-  destroy: function () {
+  destroy() {
     if (this.singleTapTimeout) clearTimeout(this.singleTapTimeout);
     if (this.longTapTimeout) clearTimeout(this.longTapTimeout);
     if (this.swipeTimeout) clearTimeout(this.swipeTimeout);
@@ -464,7 +480,7 @@ Touch.prototype = {
 
     window.removeEventListener('scroll', this._cancelAllHandler);
     return null;
-  },
-};
+  }
+}
 
 export default Touch;
