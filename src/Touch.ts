@@ -36,31 +36,58 @@ function getRotateAngle(v1, v2) {
   // return (angle * 180) / Math.PI;
 }
 
-const Handler = function (el) {
-  this.handlers = [];
-  this.el = el;
-};
+class Handler {
+  handlers: Array<(...args) => void>;
+  el: Element;
+  constructor(el: Element) {
+    this.handlers = [];
+    this.el = el;
+  }
+  add(handler) {
+    this.handlers.push(handler);
+  }
+  del(handler) {
+    if (!handler) this.handlers = [];
 
-Handler.prototype.add = function (handler) {
-  this.handlers.push(handler);
-};
-
-Handler.prototype.del = function (handler) {
-  if (!handler) this.handlers = [];
-
-  for (let i = this.handlers.length; i >= 0; i--) {
-    if (this.handlers[i] === handler) {
-      this.handlers.splice(i, 1);
+    for (let i = this.handlers.length; i >= 0; i--) {
+      if (this.handlers[i] === handler) {
+        this.handlers.splice(i, 1);
+      }
     }
   }
-};
-
-Handler.prototype.dispatch = function (...args) {
-  for (let i = 0, len = this.handlers.length; i < len; i++) {
-    const handler = this.handlers[i];
-    handler.apply?.(this.el, args);
+  dispatch(...args) {
+    for (let i = 0, len = this.handlers.length; i < len; i++) {
+      const handler = this.handlers[i];
+      handler.apply?.(this.el, args);
+    }
   }
-};
+}
+
+// const Handler = function (el) {
+//   this.handlers = [];
+//   this.el = el;
+// };
+
+// Handler.prototype.add = function (handler) {
+//   this.handlers.push(handler);
+// };
+
+// Handler.prototype.del = function (handler) {
+//   if (!handler) this.handlers = [];
+
+//   for (let i = this.handlers.length; i >= 0; i--) {
+//     if (this.handlers[i] === handler) {
+//       this.handlers.splice(i, 1);
+//     }
+//   }
+// };
+
+// Handler.prototype.dispatch = function (...args) {
+//   for (let i = 0, len = this.handlers.length; i < len; i++) {
+//     const handler = this.handlers[i];
+//     handler.apply?.(this.el, args);
+//   }
+// };
 
 function wrapFunc(el, handler) {
   const h = new Handler(el);
