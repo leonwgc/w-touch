@@ -1,16 +1,16 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { default: pack } = require('packx');
+/* eslint-disable */
+const { default: pack } = require('packw');
 const argv = require('yargs').argv;
 const path = require('path');
 
-const isBuild = !!argv.build;
+const isDev = !!argv.dev;
 
-pack(!isBuild, {
+pack(isDev, {
   entry: {
     index: `./demo/index`,
   },
   output: {
-    path: path.resolve(__dirname, 'docs'),
+    path: path.resolve(__dirname, isDev ? '__dev__' : 'docs'),
     publicPath: '',
   },
   devServer: {

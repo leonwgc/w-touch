@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Touch, { Options } from './Touch';
+import Touch, { Options } from '../src';
 
 type Props = {
   /** 手势操作元素,如果是组件，需要forwardRef到dom */

@@ -1,7 +1,7 @@
 {
   "name": "w-touch",
   "version": "1.0.3",
-  "description": "桌面和移动端手势库 desktop & mobile gesture lib",
+  "description": "Gesture library for pc and mobile",
   "keywords": [
     "touch",
     "gesture",
@@ -25,12 +25,11 @@
   "scripts": {
     "prepare": "husky install",
     "lint-staged": "lint-staged",
-    "build": "father-build --cjs --esm && tsc"
+    "build": "father-build --cjs --esm && tsc",
+    "start": "node pack --dev",
+    "build:doc": "node pack"
   },
-  "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
-  },
+  "peerDependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.7",
@@ -43,8 +42,6 @@
     "@babel/preset-typescript": "^7.8.3",
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
-    "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.11",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "babel-eslint": "^10.1.0",
@@ -54,14 +51,16 @@
     "father-build": "^1.19.5",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
-    "packx": "^1.1.2",
+    "packw": "~2.0.0",
     "prettier": "^2.2.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-uni-comps": "^1.5.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-uni-comps": "^1.8.6",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.4",
-    "yargs": "^15.3.1"
+    "yargs": "^15.3.1",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.10"
   },
   "files": [
     "dist",

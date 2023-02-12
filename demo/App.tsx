@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Toast, useMount } from 'react-uni-comps';
-import { TouchElement } from 'w-touch';
+import TouchElement from './TouchElement';
 import pkq from './images/pkq.png';
 
 type Position = {
@@ -22,10 +21,6 @@ export default function App() {
   const elRef = useRef<HTMLDivElement>();
 
   const statusElRef = useRef<HTMLDivElement>();
-
-  useMount(() => {
-    document.title = 'w-touch: 鼠标,手势库';
-  });
 
   useEffect(() => {
     update(elRef.current, ref.current, statusElRef.current);
