@@ -1,5 +1,20 @@
 /** 鼠标/触摸事件 */
 export type WTouchEvent = TouchEvent | MouseEvent;
+type MockEvent = {
+  pageX?: number;
+  pageY?: number;
+  preventDefault?: () => void;
+  touches?: Array<{
+    pageX: number;
+    pageY: number;
+  }>;
+  [x: string]: unknown;
+  angle?: number;
+  scale?: number;
+  deltaX?: number;
+  deltaY?: number;
+  direction?: 'left' | 'right' | 'up' | 'down';
+};
 type Point = {
   x: number;
   y: number;
@@ -7,12 +22,13 @@ type Point = {
 type voidFunc = () => void;
 /** 是否支持触屏 */
 export declare const isTouch: boolean;
+type HandlerFunc = (e: MockEvent) => void;
 declare class Handler {
   handlers: Array<(...args: any[]) => void>;
   el: Element;
   constructor(el: Element);
-  add(handler: any): void;
-  del(handler?: any): void;
+  add(handler: HandlerFunc): void;
+  del(handler?: HandlerFunc): void;
   dispatch(...args: any[]): void;
 }
 type WTouchHandler = (evt: WTouchEvent) => void;

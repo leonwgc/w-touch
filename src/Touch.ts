@@ -8,6 +8,11 @@ type MockEvent = {
   preventDefault?: () => void;
   touches?: Array<{ pageX: number; pageY: number }>;
   [x: string]: unknown;
+  angle?: number;
+  scale?: number;
+  deltaX?: number;
+  deltaY?: number;
+  direction?: 'left' | 'right' | 'up' | 'down';
 };
 
 const getEvent = (e) => {
@@ -63,6 +68,8 @@ function getRotateAngle(v1, v2) {
   // return (angle * 180) / Math.PI;
 }
 
+type HandlerFunc = (e: MockEvent) => void;
+
 class Handler {
   handlers: Array<(...args) => void>;
   el: Element;
@@ -70,10 +77,10 @@ class Handler {
     this.handlers = [];
     this.el = el;
   }
-  add(handler) {
+  add(handler: HandlerFunc) {
     this.handlers.push(handler);
   }
-  del(handler?) {
+  del(handler?: HandlerFunc) {
     if (!handler) this.handlers = [];
 
     for (let i = this.handlers.length; i >= 0; i--) {
