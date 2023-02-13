@@ -2,6 +2,28 @@
 /** 鼠标/触屏事件 */
 export type WTouchEvent = TouchEvent | MouseEvent;
 
+type MockEvent = {
+  pageX?: number;
+  pageY?: number;
+  preventDefault?: () => void;
+  touches?: Array<{ pageX: number; pageY: number }>;
+  [x: string]: unknown;
+};
+
+const getEvent = (e) => {
+  const evt: MockEvent = { pageX: e.pageX, pageY: e.pageY, touches: e.touches };
+
+  if (!e.touches) {
+    evt.touches = e.touches || [];
+    evt.touches[0] = {
+      pageX: e.pageX,
+      pageY: e.pageY,
+    };
+  }
+
+  return evt;
+};
+
 type Point = { x: number; y: number };
 
 type voidFunc = () => void;
@@ -197,14 +219,9 @@ class Touch {
     this.x1 = this.x2 = this.y1 = this.y2 = null;
     this.preTapPosition = { x: null, y: null };
   }
-  start(evt): void {
-    if (!(evt as TouchEvent).touches) {
-      evt.touches = evt.touches || [];
-      evt.touches[0] = {
-        pageX: evt.pageX,
-        pageY: evt.pageY,
-      };
-    }
+  start(e) {
+    const evt: MockEvent = getEvent(e);
+
     if (!this.isMoving) {
       this.isMoving = true;
     }
@@ -244,17 +261,12 @@ class Touch {
       750
     );
   }
-  move(evt) {
+  move(e) {
     if (!this.isMoving) {
       return;
     }
-    if (!evt.touches) {
-      evt.touches = evt.touches || [];
-      evt.touches[0] = {
-        pageX: evt.pageX,
-        pageY: evt.pageY,
-      };
-    }
+    const evt: MockEvent = getEvent(e);
+
     const preV = this.preV,
       len = evt.touches.length,
       currentX = evt.touches[0].pageX,
@@ -317,16 +329,17 @@ class Touch {
       evt.preventDefault();
     }
   }
-  end(evt) {
+  end(e) {
+    const evt: MockEvent = getEvent(e);
     if (this.isMoving) {
       this.isMoving = false;
     }
-    if (isTouch && !evt.changedTouches) return;
+    if (isTouch && !e.changedTouches) return;
     if (!evt.touches) {
-      evt.touches = evt.touches || [];
+      evt.touches = e.touches || [];
       evt.touches[0] = {
-        pageX: evt.pageX,
-        pageY: evt.pageY,
+        pageX: e.pageX,
+        pageY: e.pageY,
       };
     }
     this._cancelLongTap();
