@@ -1,10 +1,10 @@
 /** 鼠标/触摸事件 */
-export declare type WTouchEvent = TouchEvent | MouseEvent;
-declare type Point = {
+export type WTouchEvent = TouchEvent | MouseEvent;
+type Point = {
   x: number;
   y: number;
 };
-declare type voidFunc = () => void;
+type voidFunc = () => void;
 /** 是否支持触屏 */
 export declare const isTouch: boolean;
 declare class Handler {
@@ -15,8 +15,8 @@ declare class Handler {
   del(handler?: any): void;
   dispatch(...args: any[]): void;
 }
-declare type WTouchHandler = (evt: WTouchEvent) => void;
-export declare type Options = Partial<{
+type WTouchHandler = (evt: WTouchEvent) => void;
+export type Options = Partial<{
   onTouchStart: WTouchHandler;
   onTouchMove: WTouchHandler;
   onTouchEnd: WTouchHandler;

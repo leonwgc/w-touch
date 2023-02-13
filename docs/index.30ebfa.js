@@ -2,13 +2,14 @@
 (self.webpackChunkw_touch = self.webpackChunkw_touch || []).push([
   [826],
   {
-    779: (t, e, i) => {
+    3: (t, e, i) => {
       var s = i(294),
         n = i(745),
         h = i(152),
         o = i(671),
         a = i(144),
-        l = function (t) {
+        l = i(942),
+        u = function (t) {
           var e = { pageX: t.pageX, pageY: t.pageY, touches: t.touches };
           return (
             t.touches ||
@@ -16,14 +17,18 @@
             e
           );
         },
-        u = 'undefined' != typeof window && void 0 !== window.ontouchstart,
-        c = function () {},
-        r = function (t) {
+        c = 'undefined' != typeof window && void 0 !== window.ontouchstart,
+        r = function () {},
+        p = function (t) {
           return Math.sqrt(t.x * t.x + t.y * t.y);
         };
-      var p = (function () {
+      var d = (function () {
         function t(e) {
-          (0, o.Z)(this, t), (this.handlers = []), (this.el = e);
+          (0, o.Z)(this, t),
+            (0, l.Z)(this, 'handlers', void 0),
+            (0, l.Z)(this, 'el', void 0),
+            (this.handlers = []),
+            (this.el = e);
         }
         return (
           (0, a.Z)(t, [
@@ -57,20 +62,56 @@
           t
         );
       })();
-      function d(t, e) {
-        var i = new p(t);
+      function v(t, e) {
+        var i = new d(t);
         return i.add(e), i;
       }
       const m = (function () {
           function t(e, i) {
             (0, o.Z)(this, t),
+              (0, l.Z)(this, 'element', void 0),
+              (0, l.Z)(this, 'preV', void 0),
+              (0, l.Z)(this, 'pinchStartLen', void 0),
+              (0, l.Z)(this, 'scale', void 0),
+              (0, l.Z)(this, 'isDoubleTap', void 0),
+              (0, l.Z)(this, 'rotate', void 0),
+              (0, l.Z)(this, 'touchStart', void 0),
+              (0, l.Z)(this, 'touchMove', void 0),
+              (0, l.Z)(this, 'touchEnd', void 0),
+              (0, l.Z)(this, 'touchCancel', void 0),
+              (0, l.Z)(this, 'isMoving', void 0),
+              (0, l.Z)(this, 'multipointStart', void 0),
+              (0, l.Z)(this, 'multipointEnd', void 0),
+              (0, l.Z)(this, 'pinch', void 0),
+              (0, l.Z)(this, 'swipe', void 0),
+              (0, l.Z)(this, 'doubleTap', void 0),
+              (0, l.Z)(this, 'longTap', void 0),
+              (0, l.Z)(this, 'singleTap', void 0),
+              (0, l.Z)(this, 'pressMove', void 0),
+              (0, l.Z)(this, 'twoFingerPressMove', void 0),
+              (0, l.Z)(this, '_cancelAllHandler', void 0),
+              (0, l.Z)(this, 'delta', void 0),
+              (0, l.Z)(this, 'last', void 0),
+              (0, l.Z)(this, 'now', void 0),
+              (0, l.Z)(this, 'tapTimeout', void 0),
+              (0, l.Z)(this, 'singleTapTimeout', void 0),
+              (0, l.Z)(this, 'longTapTimeout', void 0),
+              (0, l.Z)(this, 'swipeTimeout', void 0),
+              (0, l.Z)(this, 'x1', void 0),
+              (0, l.Z)(this, 'x2', void 0),
+              (0, l.Z)(this, 'y1', void 0),
+              (0, l.Z)(this, 'y2', void 0),
+              (0, l.Z)(this, 'preTapPosition', void 0),
+              (0, l.Z)(this, '_preventTap', void 0),
+              (0, l.Z)(this, 'sx2', void 0),
+              (0, l.Z)(this, 'sy2', void 0),
               (this.element = e),
               (this.start = this.start.bind(this)),
               (this.move = this.move.bind(this)),
               (this.end = this.end.bind(this)),
               (this.cancel = this.cancel.bind(this)),
-              this.element.addEventListener(u ? 'touchstart' : 'mousedown', this.start),
-              u
+              this.element.addEventListener(c ? 'touchstart' : 'mousedown', this.start),
+              c
                 ? (this.element.addEventListener('touchmove', this.move),
                   this.element.addEventListener('touchend', this.end),
                   this.element.addEventListener('touchcancel', this.cancel))
@@ -80,21 +121,21 @@
               (this.pinchStartLen = null),
               (this.scale = 1),
               (this.isDoubleTap = !1),
-              (this.rotate = d(this.element, i.onRotate || c)),
-              (this.touchStart = d(this.element, i.onTouchStart || c)),
-              (this.touchMove = d(this.element, i.onTouchMove || c)),
-              (this.touchEnd = d(this.element, i.onTouchEnd || c)),
-              (this.touchCancel = d(this.element, i.onTouchCancel || c)),
+              (this.rotate = v(this.element, i.onRotate || r)),
+              (this.touchStart = v(this.element, i.onTouchStart || r)),
+              (this.touchMove = v(this.element, i.onTouchMove || r)),
+              (this.touchEnd = v(this.element, i.onTouchEnd || r)),
+              (this.touchCancel = v(this.element, i.onTouchCancel || r)),
               (this.isMoving = !1),
-              (this.multipointStart = d(this.element, i.onMultipointStart || c)),
-              (this.multipointEnd = d(this.element, i.onMultipointEnd || c)),
-              (this.pinch = d(this.element, i.onPinch || c)),
-              (this.swipe = d(this.element, i.onSwipe || c)),
-              (this.doubleTap = d(this.element, i.onDoubleTap || c)),
-              (this.longTap = d(this.element, i.onLongTap || c)),
-              (this.singleTap = d(this.element, i.onSingleTap || c)),
-              (this.pressMove = d(this.element, i.onPressMove || c)),
-              (this.twoFingerPressMove = d(this.element, i.onTwoFingerPressMove || c)),
+              (this.multipointStart = v(this.element, i.onMultipointStart || r)),
+              (this.multipointEnd = v(this.element, i.onMultipointEnd || r)),
+              (this.pinch = v(this.element, i.onPinch || r)),
+              (this.swipe = v(this.element, i.onSwipe || r)),
+              (this.doubleTap = v(this.element, i.onDoubleTap || r)),
+              (this.longTap = v(this.element, i.onLongTap || r)),
+              (this.singleTap = v(this.element, i.onSingleTap || r)),
+              (this.pressMove = v(this.element, i.onPressMove || r)),
+              (this.twoFingerPressMove = v(this.element, i.onTwoFingerPressMove || r)),
               (this._cancelAllHandler = this.cancelAll.bind(this)),
               window.addEventListener('scroll', this._cancelAllHandler),
               (this.delta = null),
@@ -112,7 +153,7 @@
               {
                 key: 'start',
                 value: function (t) {
-                  var e = l(t);
+                  var e = u(t);
                   this.isMoving || (this.isMoving = !0),
                     (this.now = Date.now()),
                     (this.x1 = e.touches[0].pageX),
@@ -135,7 +176,7 @@
                     var s = { x: e.touches[1].pageX - this.x1, y: e.touches[1].pageY - this.y1 };
                     (i.x = s.x),
                       (i.y = s.y),
-                      (this.pinchStartLen = r(i)),
+                      (this.pinchStartLen = p(i)),
                       this.multipointStart.dispatch(e, this.element);
                   }
                   (this._preventTap = !1),
@@ -152,55 +193,55 @@
                 value: function (t) {
                   var e, i, s, n;
                   if (this.isMoving) {
-                    var h = l(t),
+                    var h = u(t),
                       o = this.preV,
                       a = h.touches.length,
-                      u = h.touches[0].pageX,
+                      l = h.touches[0].pageX,
                       c = h.touches[0].pageY;
                     if (((this.isDoubleTap = !1), a > 1)) {
-                      var p = h.touches[1].pageX,
+                      var r = h.touches[1].pageX,
                         d = h.touches[1].pageY,
-                        m = { x: h.touches[1].pageX - u, y: h.touches[1].pageY - c };
+                        v = { x: h.touches[1].pageX - l, y: h.touches[1].pageY - c };
                       null !== o.x &&
                         (this.pinchStartLen > 0 &&
-                          ((h.scale = r(m) / this.pinchStartLen),
+                          ((h.scale = p(v) / this.pinchStartLen),
                           this.pinch.dispatch(h, this.element)),
                         (h.angle =
                           ((n = (function (t, e) {
-                            var i = r(t) * r(e);
+                            var i = p(t) * p(e);
                             if (0 === i) return 0;
                             var s =
                               (function (t, e) {
                                 return t.x * e.x + t.y * e.y;
                               })(t, e) / i;
                             return s > 1 && (s = 1), Math.acos(s);
-                          })((i = m), (s = o))),
+                          })((i = v), (s = o))),
                           (function (t, e) {
                             return t.x * e.y - e.x * t.y;
                           })(i, s) > 0 && (n *= -1),
                           180 * n)),
                         this.rotate.dispatch(h, this.element)),
-                        (o.x = m.x),
-                        (o.y = m.y),
+                        (o.x = v.x),
+                        (o.y = v.y),
                         null !== this.x2 && null !== this.sx2
-                          ? ((h.deltaX = (u - this.x2 + p - this.sx2) / 2),
+                          ? ((h.deltaX = (l - this.x2 + r - this.sx2) / 2),
                             (h.deltaY = (c - this.y2 + d - this.sy2) / 2))
                           : ((h.deltaX = 0), (h.deltaY = 0)),
                         this.twoFingerPressMove.dispatch(h, this.element),
-                        (this.sx2 = p),
+                        (this.sx2 = r),
                         (this.sy2 = d);
                     } else {
                       if (null !== this.x2) {
-                        (h.deltaX = u - this.x2), (h.deltaY = c - this.y2);
-                        var v = Math.abs(this.x1 - this.x2),
+                        (h.deltaX = l - this.x2), (h.deltaY = c - this.y2);
+                        var m = Math.abs(this.x1 - this.x2),
                           T = Math.abs(this.y1 - this.y2);
-                        (v > 10 || T > 10) && (this._preventTap = !0);
+                        (m > 10 || T > 10) && (this._preventTap = !0);
                       } else (h.deltaX = 0), (h.deltaY = 0);
                       this.pressMove.dispatch(h, this.element);
                     }
                     null === (e = this.touchMove) || void 0 === e || e.dispatch(h, this.element),
                       this._cancelLongTap(),
-                      (this.x2 = u),
+                      (this.x2 = l),
                       (this.y2 = c),
                       a > 1 && h.preventDefault();
                   }
@@ -210,14 +251,14 @@
                 key: 'end',
                 value: function (t) {
                   var e,
-                    i = l(t);
-                  if ((this.isMoving && (this.isMoving = !1), !u || t.changedTouches)) {
+                    i = u(t);
+                  if ((this.isMoving && (this.isMoving = !1), !c || t.changedTouches)) {
                     i.touches ||
                       ((i.touches = t.touches || []),
                       (i.touches[0] = { pageX: t.pageX, pageY: t.pageY })),
                       this._cancelLongTap();
                     var s = this;
-                    u &&
+                    c &&
                       i.touches.length < 2 &&
                       (this.multipointEnd.dispatch(i, this.element), (this.sx2 = this.sy2 = null)),
                       (this.x2 && Math.abs(this.x1 - this.x2) > 30) ||
@@ -310,8 +351,8 @@
                     this.singleTapTimeout && clearTimeout(this.singleTapTimeout),
                     this.longTapTimeout && clearTimeout(this.longTapTimeout),
                     this.swipeTimeout && clearTimeout(this.swipeTimeout),
-                    this.element.removeEventListener(u ? 'touchstart' : 'mousedown', this.start),
-                    u
+                    this.element.removeEventListener(c ? 'touchstart' : 'mousedown', this.start),
+                    c
                       ? (this.element.removeEventListener('touchmove', this.move),
                         this.element.removeEventListener('touchend', this.end),
                         this.element.removeEventListener('touchcancel', this.cancel))
@@ -371,10 +412,10 @@
             t
           );
         })(),
-        v = i.p + 'images/pkq.3aaa0f4b.png';
-      var T = i(415);
-      new (i.n(T)())();
-      var g = function (t, e, i) {
+        T = i.p + 'images/pkq.3aaa0f4b.png';
+      var g = i(415);
+      new (i.n(g)())();
+      var f = function (t, e, i) {
         var s = 'translate('
           .concat(e.x, 'px,')
           .concat(e.y, 'px) rotate(')
@@ -382,7 +423,7 @@
           .concat(e.scale, ')');
         (t.style.transform = s), (i.innerText = '坐标: ' + s);
       };
-      function f() {
+      function y() {
         var t = (0, s.useRef)({ x: 0, y: 0, angle: 0, scale: 1 }),
           e = (0, s.useRef)(),
           i = (0, s.useState)(''),
@@ -391,7 +432,7 @@
           a = n[1],
           l = (0, s.useRef)();
         (0, s.useEffect)(function () {
-          g(e.current, t.current, l.current);
+          f(e.current, t.current, l.current);
         }, []);
         var u = (0, s.useCallback)(function () {
           a('');
@@ -407,18 +448,18 @@
               },
               onPinch: function (i) {
                 var s = i.scale;
-                (t.current.scale = s), g(e.current, t.current, l.current), u();
+                (t.current.scale = s), f(e.current, t.current, l.current), u();
               },
               onRotate: function (i) {
                 var s = i.angle;
-                (t.current.angle += s), g(e.current, t.current, l.current), u();
+                (t.current.angle += s), f(e.current, t.current, l.current), u();
               },
               onPressMove: function (i) {
                 var s = i.deltaX,
                   n = i.deltaY;
                 (t.current.x = t.current.x + s),
                   (t.current.y = t.current.y + n),
-                  g(e.current, t.current, l.current),
+                  f(e.current, t.current, l.current),
                   u();
               },
               onTwoFingerPressMove: function (e) {
@@ -460,7 +501,7 @@
                 userSelect: 'none',
                 width: 200,
                 height: 200,
-                background: 'center / contain no-repeat url('.concat(v, ')'),
+                background: 'center / contain no-repeat url('.concat(T, ')'),
                 marginLeft: 100,
                 marginTop: 100,
               },
@@ -468,10 +509,10 @@
           )
         );
       }
-      (0, n.s)(document.querySelector('#root')).render(s.createElement(f, null));
+      (0, n.s)(document.querySelector('#root')).render(s.createElement(y, null));
     },
   },
   (t) => {
-    t.O(0, [736], () => (779, t((t.s = 779)))), t.O();
+    t.O(0, [736], () => (3, t((t.s = 3)))), t.O();
   },
 ]);
