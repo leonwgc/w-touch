@@ -4,6 +4,7 @@
   "description": "Gesture library for pc and mobile",
   "keywords": [
     "touch",
+    "mouse",
     "gesture",
     "tap",
     "doubleTap",
@@ -11,8 +12,7 @@
     "rotate",
     "pinch",
     "pressMove",
-    "swipe",
-    "two finger"
+    "swipe"
   ],
   "license": "MIT",
   "repository": "https://github.com/leonwgc/w-touch",
