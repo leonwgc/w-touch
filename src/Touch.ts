@@ -5,7 +5,6 @@ export type WTouchEvent = TouchEvent | MouseEvent;
 type MockEvent = {
   pageX?: number;
   pageY?: number;
-  preventDefault?: () => void;
   touches?: Array<{ pageX: number; pageY: number }>;
   [x: string]: unknown;
   angle?: number;
@@ -333,7 +332,7 @@ class Touch {
     this.y2 = currentY;
 
     if (len > 1) {
-      evt.preventDefault();
+      e.preventDefault();
     }
   }
   end(e) {

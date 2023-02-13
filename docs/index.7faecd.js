@@ -243,7 +243,7 @@
                       this._cancelLongTap(),
                       (this.x2 = l),
                       (this.y2 = c),
-                      a > 1 && h.preventDefault();
+                      a > 1 && t.preventDefault();
                   }
                 },
               },

@@ -3,7 +3,6 @@ export type WTouchEvent = TouchEvent | MouseEvent;
 type MockEvent = {
   pageX?: number;
   pageY?: number;
-  preventDefault?: () => void;
   touches?: Array<{
     pageX: number;
     pageY: number;
