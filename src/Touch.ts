@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/** 鼠标/触屏事件 */
+/** 鼠标/触摸事件 */
 export type WTouchEvent = TouchEvent | MouseEvent;
 
 type MockEvent = {
