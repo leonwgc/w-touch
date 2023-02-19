@@ -46,7 +46,7 @@ const touch = new Touch(el as Element, {
     touch.destroy();
 ```
 
-## React 绑定 (Vue同理)
+## React 绑定 
 
 ```js
 import * as React from 'react';
@@ -91,6 +91,35 @@ const TouchElement = React.forwardRef<Element, Props>((props, ref) => {
 TouchElement.displayName = 'TouchElement';
 
 export default TouchElement;
+
+```
+
+### Vue3 绑定
+```
+<script lang="ts" setup>
+import { onMounted, onUnmounted, ref } from 'vue';
+import Touch, { type Options } from 'w-touch';
+
+const props = defineProps<{
+  options: Options;
+}>();
+
+let touchInstance: Touch;
+
+const el = ref<Element>();
+
+onMounted(() => {
+  touchInstance = new Touch(el.value as Element, props.options);
+});
+
+onUnmounted(() => {
+  touchInstance.destroy();
+});
+</script>
+
+<template>
+  <div ref="el"><slot /></div>
+</template>
 
 ```
 
