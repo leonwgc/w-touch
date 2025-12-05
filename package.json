@@ -27,7 +27,11 @@
     "lint-staged": "lint-staged",
     "build": "father-build --cjs --esm && tsc",
     "start": "node pack --dev",
-    "build:doc": "node pack"
+    "build:doc": "node pack",
+    "prepublishOnly": "npm run build",
+    "publish--patch": "./publish.sh patch",
+    "publish--minor": "./publish.sh minor",
+    "publish--major": "./publish.sh major"
   },
   "peerDependencies": {},
   "devDependencies": {
